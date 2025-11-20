@@ -20,7 +20,7 @@ from tensorflow.keras import losses
 from tensorflow.keras import metrics
 from callbacks import EarlyStopping
 
-import os
+import os, sys
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 print(os.getcwd())
 
@@ -28,21 +28,20 @@ import function as fc
 
 #株価取得---------------------------------------------------------------------------------------
 '''
-start = datetime(1965, 1, 4)
-end = datetime(2023, 4, 25)
-stock = '^N225'
-df = fc.data_get(stock,start,end)
-#df.to_csv('Stock_Price.csv')
-
-
-df = pd.read_csv('Stock_Price.csv')
-'''
-
 start = datetime(2001, 1, 1)
 end = datetime.today()
 stock = '^N225'
 df = fc.data_get(stock,start,end)
+df.to_csv('Stock_Price.csv')
 
+
+df = pd.read_csv('Stock_Price.csv')
+df['Date'] = pd.to_datetime(df['Date'])
+'''
+
+
+df = pd.read_csv('Stock_Price.csv')
+df['Date'] = pd.to_datetime(df['Date'])
 date = pd.to_datetime(df["Date"])   
 
 #SP波動法のパラメータ-------------------------------------------------------
